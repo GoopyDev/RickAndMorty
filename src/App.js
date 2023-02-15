@@ -6,7 +6,7 @@ import characters, { Rick } from './data.js'
 
 function App () {
   return (
-    <div className='App' style={{ padding: '25px' }}>
+    <div className='App' style={{ padding: '25px', backgroundColor: "#eee5"}}>
       <div>
         <SearchBar
           onSearch={(characterID) => window.alert(characterID)}
