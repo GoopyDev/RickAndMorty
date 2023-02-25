@@ -2,48 +2,76 @@ import styled from "styled-components";
 import redGem from "./Card_Red_Gem.png";
 import img from "../images/images.jsx";
 
+// Variables ///////////
 var cardSize = 350;
 var cardScale = 1.05;
 var redGemSize = "80px";
+////////////////////////
+
+// Funciones /////////////////////////////
 const cardImg = function () {
    let num = Math.floor(Math.random()*25);
    let cardImg = img[num];
    return cardImg;
 }
+
 const cardFloat = function() {
-   let num = Math.floor(Math.random()*10);
-   console.log(num, num%4)
-   if (( num % 4) === 0) { return  "0.0001" }
-   if (( num % 4) === 1) { return "-0.0001" }
-   if (( num % 4) === 2) { return  "0.0002" }
+   let num = Math.floor(Math.random()*10) % 6;
+   // console.log(num, num%4)
+   if      (num === 0) { return  "0.00005"  }
+   else if (num === 1) { return "-0.00005"  }
+   else if (num === 2) { return  "0.0001"   }
+   else if (num === 2) { return "-0.0001"   }
+   else if (num === 2) { return  "0.0002"   }
    return "-0.0002";
 }
 
+const cardInnerBorder = function() {
+   let num = Math.floor(Math.random()*10) % 6;
+   // console.log(num, num%4)
+   if      (num === 0) { return "gold" }
+   else if (num === 1) { return "darkgoldenrod" }
+   else if (num === 2) { return "goldenrod" }
+   else if (num === 3) { return "mediumspringgreen" }
+   else if (num === 4) { return "cyan" }
+   return "darkturquoise";
+}
+//////////////////////////////////////////
+
+// Styled Components /////////////////////
 const CardContainer = styled.div`
    display:          flex;
    position:         relative;
    flex-direction:   column;
    justify-content:  center;
    width:            ${cardSize}px;
-   background-color: #fefefe;
-   background-image: url(${cardImg});
-   background-position: center;
-   background-size:  cover;
-   border:           4px solid darkgray;
+   border:           8px solid transparent;
    outline:          1px solid black;
    border-radius:    10px;
+   background:       linear-gradient(white,white) padding-box,linear-gradient(to left top, gold,goldenrod, yellow, darkgoldenrod, white, darkgoldenrod, gold, yellow, white, darkgoldenrod, gold, goldenrod, yellow, white, yellow, gold, goldenrod, darkgoldenrod) border-box;
+   background:       linear-gradient(to left top, gold,goldenrod, yellow, darkgoldenrod, white, darkgoldenrod, gold, yellow, white, darkgoldenrod, gold, goldenrod, yellow, white, yellow, gold, goldenrod, darkgoldenrod) border-box;
    transform:        scale(.95);
    transition:       all .25s;
    z-index:          1;
    filter:           grayscale(.7) drop-shadow(2px 4px 6px #222);
-
+   
    &:hover{
       transform:        scale(${cardScale}) matrix3d(1, 0, 0, ${cardFloat}, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
       z-index:          999;
       filter:           drop-shadow(2px 4px 6px black);
    }
+`   
+const CardBG = styled.div`
+   background-image: url(${cardImg});
+   background-position: center;
+   background-size:  cover;
+   border:           2px solid ${cardInnerBorder};
+   border-radius:    7px;
+   display:          flex;
+   position:         relative;
+   flex-direction:   column;
+   justify-content:  center;
 `
-
 const RedGemDiv = styled.div`
    display:          flex;
    align-self:       center;
@@ -54,7 +82,7 @@ const RedGemDiv = styled.div`
    border-radius:    50%;
    &:before{
       box-shadow:       1px 1px 1px 2px black;}
-      `
+`
 const RedGemLabel = styled.div`
    display:          flex;
    align-self:       center;
@@ -80,7 +108,7 @@ const Imagen = styled.img`
    &:hover{
       filter:           saturate(2);
    }
-   `
+`
 const Nombre = styled.h2`
    display:          block;
    position:         relative;
@@ -92,11 +120,15 @@ const Nombre = styled.h2`
    border-radius:    0 0 10px 10px;
    color:            white;
    background-color: #55555570;
-   `
+`
 const BotonX = styled.button`
    width:            10%;
    align-self:       flex-end;
-   background-color: #ff000070;
+   position:         relative;
+   top:              -5px;
+   right:            -3px;
+   text-shadow:      0px 1px 1px white;
+   background-color: #ff8080;
    border-radius:    5px;
    transform:        perspective(100px) matrix3d(1, 0, 0, 0, 0, 1, 2, 0, 0, 0, 1, 0, 0, 0, 0, 1) skewX(-22deg);
    transition:       all .75s;
@@ -104,24 +136,28 @@ const BotonX = styled.button`
    &:hover{
       background-color: red;
       color:            white;
+      text-shadow:      0px 2px 1px black;
     }
 `
-
 const CardInfo = styled.h2`
    text-shadow: 0 0 9px white;
 `
+//////////////////////////////////////////
 
-
+// Componente //
 export default function Card({id = 1, name, species, gender, image, onClose }) {
    return (
       <CardContainer id={id}>
-         <BotonX onClick={onClose}>X</BotonX>
-         <Imagen src={image} alt={"Imagen del personaje " + name} />
-         <Nombre>{name}</Nombre>
-         <RedGemDiv><img src={redGem} alt="Imagen de gema roja" width={redGemSize} height={redGemSize} /></RedGemDiv>
-         <RedGemLabel><h2>{id}</h2></RedGemLabel>
-         <CardInfo>{species}</CardInfo>
-         <CardInfo>{gender}</CardInfo>
+         <CardBG>
+            <BotonX onClick={onClose}>X</BotonX>
+            <Imagen src={image} alt={"Imagen del personaje " + name} />
+            <Nombre>{name}</Nombre>
+            <RedGemDiv><img src={redGem} alt="Imagen de gema roja" width={redGemSize} height={redGemSize} /></RedGemDiv>
+            <RedGemLabel><h2>{id}</h2></RedGemLabel>
+            <CardInfo>{species}</CardInfo>
+            <CardInfo>{gender}</CardInfo>
+         </CardBG>
       </CardContainer>
    );
 }
+////////////////

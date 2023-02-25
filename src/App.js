@@ -1,18 +1,37 @@
-import './App.css'
-import Card from './components/Card.jsx'
-import Cards from './components/Cards.jsx'
-import SearchBar from './components/SearchBar.jsx'
-import characters, { Rick } from './data.js'
+import './App.css';
+// import Card from './components/Card.jsx';
+import Cards from './components/Cards.jsx';
+import Nav from './components/Nav';
+// import SearchBar from './components/SearchBar.jsx'
+// import characters, { Rick } from './data.js'
+import React from 'react'
 
-function App () {
+
+export function App () {
+  
+  const [characters, setCharacters] = React.useState([]);
+  
+  const example = {
+    id:       2,
+    name:     'Morty Smith',
+    species:  'Human',
+    gender:   'Male',
+    image:    'https://rickandmortyapi.com/api/character/avatar/2.jpeg',
+  };
+  
+  const onSearch = () => {
+    console.log(`Example: ${example}
+    Characters: ${characters}, ${typeof(characters)}, ${Array.isArray(characters)}`);
+    setCharacters([...characters, example]);
+  };
+  
   return (
-    <div className='App' style={{ padding: '25px', backgroundColor: "#eee5"}}>
-      <div>
-        <SearchBar
+    <div className='App'>
+        <Nav onSearch={onSearch}></Nav>
+        {/* <SearchBar
           onSearch={(characterID) => window.alert(characterID)}
-        />
-      </div>
-      <div>
+        /> */}
+      {/* <div>
         <Card
           name={Rick.name}
           species={Rick.species}
@@ -20,11 +39,11 @@ function App () {
           image={Rick.image}
           onClose={() => window.alert('Emulamos que se cierra la card')}
         />
-      </div>
+      </div> */}
       <hr />
-      <div>
+      <div style={{display: "flex", flexWrap: "wrap", justifyContent: "space-evenly"}}>
         <Cards
-          characters={characters}
+          characters = {characters}
         />
       </div>
       <hr />
@@ -32,4 +51,4 @@ function App () {
   )
 }
 
-export default App
+export default App;
