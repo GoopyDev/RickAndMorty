@@ -20,7 +20,16 @@ export default function Nav(props) {
   return (
     <NavBar>
       <div style={{ width: "40%" }}>
-        <img src={logo} alt="Rick and Morty App Logo" />
+        <img
+          src={logo}
+          alt="Rick and Morty App Logo"
+          style={{
+            width: "250px",
+            position: "fixed",
+            top: "-30px",
+            left: "25px",
+          }}
+        />
       </div>
       <NavLink to="/home">Home</NavLink>
       <NavLink to="/about">Acerca de</NavLink>
