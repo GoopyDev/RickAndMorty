@@ -33,6 +33,42 @@ button {
     border: 3px solid skyblue;
     border-radius: 20px;
     margin-top: 50px;
-    background: radial-gradient( #00d0ff80,#1c7a9080,#28b7d880,#8feaff80,#116f8b75,#bceeffd4,#00d0ff80,#78c8da80);
+    color: #fff;
+    text-shadow: 0 0 2px black;
+    box-shadow: 0 0 1px 0px white;
+    background: radial-gradient( #00d0ff44,#1c7a9044,#28b7d844,#8feaff44,#116f8b44,#bceeff44,#00d0ff44,#78c8da44);
+    background-position: 84%;
     background-size: 200% 300%;
+    transition: all 1s;
+}
+button:hover{
+    /* transition: ; */
+    border: 3px solid aqua;
+    text-shadow: 0 0 2px rgb(126, 126, 126);
+    box-shadow: 0 0 5px 2px white;
+    background: radial-gradient( #00d0ff77,#1c7a9077,#28b7d877,#8feaff77,#116f8b77,#bceeff77,#00d0ff77,#78c8da77);
+    background-position: 90%;
+    background-size: 300% 400%;
+}
+
+.error {
+    font-size: small;
+    font-weight: bold;
+    color:#bb0000;
+    text-shadow: 0 0 3px #ff7878;
+    line-height: 0px;
+}
+
+#errorDiv {
+    display: none;
+    position: fixed;
+    top: 100px;
+    padding: 20px 55px;
+    border-radius: 5px;
+    font-size: small;
+    font-weight: bold;
+    color: #bb0000;
+    text-shadow: 0 0 3px #ff7878;
+    line-height: 0px;
+    background-color: #ff787899;
 }
